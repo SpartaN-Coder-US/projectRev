@@ -45,8 +45,8 @@ if ($results === false ){
 else{
 /*
 @param $results is the result object from the mysqli_query()
-@
- */
+
+*/
     $articles = mysqli_fetch_all($results,MYSQLI_ASSOC);
 
     var_dump($articles);
