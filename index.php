@@ -23,13 +23,13 @@ if (mysqli_connect_error()){
 }
 
 
-echo "Connected succesfully";
+
 
 # Asigning the $sql variable the query string for the database
 
 $sql =
 "
-SELECT * 
+SELECT *
 FROM article
 ORDER BY published_at;";
 
@@ -45,10 +45,48 @@ if ($results === false ){
 else{
 /*
 @param $results is the result object from the mysqli_query()
-
+@param $MYSQLI_ASSOC (constant) formats the data from the result object mysqli into an associative array.
 */
     $articles = mysqli_fetch_all($results,MYSQLI_ASSOC);
 
-    var_dump($articles);
+    
 }
+?>
 
+
+<!DOCTYPE html>
+<html>
+<!-- 
+This is the structure of the website
+-->
+<head>
+    <title>My blog</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+    <header>
+        <h1>My blog</h1>
+    </header>
+
+    <main>
+        <?php if (empty($articles)): ?> <!-- check if the query returns empty list of articles  -->
+            <p>No articles found.</p>
+        <?php else: ?>
+
+            <ul>
+                <?php foreach ($articles as $article): ?> <!-- if articles are present loop trough the array   -->
+                    <li>  <!-- The list element creates die to the loop, every iteration a list item thus creating an article every iteration -->
+                        <article>
+                            <!-- Here we will echo out via the keys('title' & 'content') the content of title and content -->
+                            <h2><?= $article['title']; ?></h2>
+                            <p><?= $article['content']; ?></p>
+                        </article>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+
+        <?php endif; ?>
+    </main>
+</body>
+</html>
