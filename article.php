@@ -28,6 +28,8 @@ if (mysqli_connect_error()){
 
 # Asigning the $sql variable the query string for the database
 
+if (isset($_GET['id']) && is_numeric($_GET['id'])){ # to prevent sql injection we are checking if the id first exists and if the id is numeric in order to limit the posibility of sql injection
+
 $sql =
 "
 SELECT *
@@ -52,7 +54,10 @@ We are only needing one row for the Article.php page and sorted in an associativ
 */
     $article = mysqli_fetch_assoc($results);
 
-    
+}
+
+} else {
+    $article = null;    #if the id != valid then we assign $article null.
 }
 ?>
 
