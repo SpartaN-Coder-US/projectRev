@@ -19,6 +19,7 @@ else we print to the client "Connected succesfully"
  */
 if (mysqli_connect_error()){
     echo mysqli_connect_error();
+    
     exit;
 }
 
@@ -31,14 +32,16 @@ $sql =
 "
 SELECT *
 FROM article
-WHERE id = 0";
+WHERE id = " . $_GET['id'];
+
+
 
 # Asiging the $results var, the query result object based on the connection to the database ($conn) and the query statemanet ($sql)
 
 $results = mysqli_query($conn,$sql); 
 
 if ($results === false ){
-
+   
     echo mysqli_error($conn); #if error with the query then echo out the error @atribute = connection object from mysqli_connect()
 }
 

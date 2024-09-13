@@ -79,7 +79,8 @@ This is the structure of the website
                     <li>  <!-- The list element creates die to the loop, every iteration a list item thus creating an article every iteration -->
                         <article>
                             <!-- Here we will echo out via the keys('title' & 'content') the content of title and content -->
-                            <h2><?= $article['title']; ?></h2>
+                            <h2><a href = "article.php?id=<?=$article['id'];?>"><?=$article['title']?></a></h2>
+
                             <p><?= $article['content']; ?></p>
                         </article>
                     </li>
