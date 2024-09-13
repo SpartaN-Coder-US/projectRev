@@ -19,6 +19,7 @@ else we print to the client "Connected succesfully"
  */
 if (mysqli_connect_error()){
     echo mysqli_connect_error();
+    
     exit;
 }
 
@@ -31,23 +32,25 @@ $sql =
 "
 SELECT *
 FROM article
-ORDER BY published_at;";
+WHERE id = " . $_GET['id']; # instead of hardcoding the id we are pasiing in the id from the querry.
+
+
 
 # Asiging the $results var, the query result object based on the connection to the database ($conn) and the query statemanet ($sql)
 
 $results = mysqli_query($conn,$sql); 
 
 if ($results === false ){
-
+   
     echo mysqli_error($conn); #if error with the query then echo out the error @atribute = connection object from mysqli_connect()
 }
 
 else{
 /*
-@param $results is the result object from the mysqli_query()
-@param $MYSQLI_ASSOC (constant) formats the data from the result object mysqli into an associative array.
+We are only needing one row for the Article.php page and sorted in an associative array, which mysqli_fetch_assoc() does exactly that
+@param (var)$results is the mysqli results object from the query.
 */
-    $articles = mysqli_fetch_all($results,MYSQLI_ASSOC);
+    $article = mysqli_fetch_assoc($results);
 
     
 }
@@ -70,23 +73,20 @@ This is the structure of the website
     </header>
 
     <main>
-        <?php if (empty($articles)): ?> <!-- check if the query returns empty list of articles  -->
-            <p>No articles found.</p>
+        <?php if ($article === NULL): ?> <!-- check if the query returns a NULL result and stop the program if it does.  -->
+            <p>Article not found.</p>
         <?php else: ?>
 
             <ul>
-                <?php foreach ($articles as $article): ?> <!-- if articles are present loop trough the array   -->
-                    <li>  <!-- The list element creates die to the loop, every iteration a list item thus creating an article every iteration -->
+                
+                    <li>  
                         <article>
-                            <!-- Here we will echo out via the keys('title' & 'content') the content of title and content
-                                 Also we are making the title a link with the referencec to our article.php where the id 
-                                 is taken from the $article -->
-                            <h2><a href = "article.php?id=<?=$article['id'];?>"><?=$article['title']?></a></h2>
-
+                            <!-- Here we will echo out via the keys('title' & 'content') the content of title and content -->
+                            <h2><?= $article['title']; ?></h2>
                             <p><?= $article['content']; ?></p>
                         </article>
                     </li>
-                <?php endforeach; ?>
+                
             </ul>
 
         <?php endif; ?>
