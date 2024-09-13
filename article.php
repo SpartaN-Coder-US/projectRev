@@ -32,7 +32,7 @@ $sql =
 "
 SELECT *
 FROM article
-WHERE id = " . $_GET['id'];
+WHERE id = " . $_GET['id']; # instead of hardcoding the id we are pasiing in the id from the querry.
 
 
 

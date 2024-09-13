@@ -78,7 +78,9 @@ This is the structure of the website
                 <?php foreach ($articles as $article): ?> <!-- if articles are present loop trough the array   -->
                     <li>  <!-- The list element creates die to the loop, every iteration a list item thus creating an article every iteration -->
                         <article>
-                            <!-- Here we will echo out via the keys('title' & 'content') the content of title and content -->
+                            <!-- Here we will echo out via the keys('title' & 'content') the content of title and content
+                                 Also we are making the title a link with the referencec to our article.php where the id 
+                                 is taken from the $article -->
                             <h2><a href = "article.php?id=<?=$article['id'];?>"><?=$article['title']?></a></h2>
 
                             <p><?= $article['content']; ?></p>
