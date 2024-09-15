@@ -1,7 +1,7 @@
 
 <?php
 
-require 'database.php';
+require 'includes/database.php';
 
 
 # Asigning the $sql variable the query string for the database
@@ -40,7 +40,7 @@ We are only needing one row for the Article.php page and sorted in an associativ
 ?>
 
 
-<?php require 'header.php';?>
+<?php require 'includes/header.php';?>
 
         <?php if ($article === NULL): ?> <!-- check if the query returns a NULL result and stop the program if it does.  -->
             <p>Article not found.</p>
@@ -59,4 +59,4 @@ We are only needing one row for the Article.php page and sorted in an associativ
             </ul>
 
         <?php endif; ?>
-<?php require 'footer.php';
+<?php require 'includes/footer.php';

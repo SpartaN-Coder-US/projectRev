@@ -1,7 +1,7 @@
 
 <?php
 
-require 'database.php';
+require 'includes/database.php';
 
 
 # Asigning the $sql variable the query string for the database
@@ -33,7 +33,7 @@ else{
 ?>
 
 
-<?php require 'header.php'; ?>
+<?php require 'includes/header.php'; ?>
         <?php if (empty($articles)): ?> <!-- check if the query returns empty list of articles  -->
             <p>No articles found.</p>
         <?php else: ?>
@@ -54,4 +54,4 @@ else{
             </ul>
 
         <?php endif; ?>
-<?php require 'footer.php';?>
+<?php require 'includes/footer.php';?>
