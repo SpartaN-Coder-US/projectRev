@@ -1,6 +1,9 @@
 <?php
 
-var_dump($_GET);
+if ($_SERVER["REQUEST_METHOD"]=== "POST"){
+    var_dump($_POST);
+
+}
 
 ?>
 
@@ -15,9 +18,10 @@ var_dump($_GET);
 
 <body>
 
-<form>
+<form method = "post">  
 
-<input name = "search" >
+<input name = "search">
+<input name = "password" type = "password">
 
 <button>Send</button>
 
