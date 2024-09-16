@@ -16,16 +16,27 @@ if ($_SERVER["REQUEST_METHOD"]=== "POST"){
 
 </head>
 
-<body>
+<form method="post">
 
-<form method = "post">  
+<select name="marques[]" >
+<optgroup label="cars">
+                <option value="bmw">BMW</option>
+                <option value="ford" selected>Ford</option>
+                <option value="saab">Saab</option>
+            </optgroup>
+            <optgroup label="countries">
+                <option value="USA">USA</option>
+                <option value="RUSSIA">RUSSIA</option>
+                <option value="MOLDOVA">MOLDOVA</option>
+            </optgroup>
 
-<input name = "search">
-<input name = "password" type = "password">
+    </select>
+  
 
-<button>Send</button>
+    <button>Send</button>
 
 </form>
+
 
 </body>
 
