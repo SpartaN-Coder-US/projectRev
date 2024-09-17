@@ -9,29 +9,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql =
     "
     INSERT INTO article (title, content, published_at)
-    VALUES ('" . mysqli_escape_string($conn,$_POST['title']) . "','"
-               . mysqli_escape_string($conn,$_POST['content']) . "','"
-               . mysqli_escape_string($conn,$_POST['published_at']) . "')";
+    VALUES ( ?, ?, ?)";
 
     
     
     
-    var_dump($sql);exit;
     
     
     # Asiging the $results var, the query result object based on the connection to the database ($conn) and the query statemanet ($sql)
     
-    $results = mysqli_query($conn,$sql); 
+    $stmt = mysqli_prepare($conn,$sql);
     
-    if ($results === false ){
+    if ($stmt === false ){
        
         echo mysqli_error($conn); #if error with the query then echo out the error @atribute = connection object from mysqli_connect()
     }
     
     else{
 
+        mysqli_stmt_bind_param($stmt,'sss',$_POST['title'],$_POST['content'],$_POST['published_ad']);
+
+      if( mysqli_stmt_execute($stmt)){
 
         $id = mysqli_insert_id($conn);
+
         echo "Inserted record with ID: $id";
     /*
     We are only needing one row for the Article.php page and sorted in an associative array, which mysqli_fetch_assoc() does exactly that
@@ -39,7 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     */
         
     
+    }else{
+
+        echo mysqli_stmt_insert_id($stmt);
+
     }
+}
 
     // Optional: Example code for handling the posted data
     // Retrieve and process the form data here if needed
