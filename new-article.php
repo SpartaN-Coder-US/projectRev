@@ -1,8 +1,45 @@
 <?php
+
+
+
 // Check if the form was submitted using the POST method
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Output the POST data for debugging purposes
-    var_dump($_POST);
+    require 'includes/database.php';
+    $sql =
+    "
+    INSERT INTO article (title, content, published_at)
+    VALUES ('" . mysqli_escape_string($conn,$_POST['title']) . "','"
+               . mysqli_escape_string($conn,$_POST['content']) . "','"
+               . mysqli_escape_string($conn,$_POST['published_at']) . "')";
+
+    
+    
+    
+    var_dump($sql);exit;
+    
+    
+    # Asiging the $results var, the query result object based on the connection to the database ($conn) and the query statemanet ($sql)
+    
+    $results = mysqli_query($conn,$sql); 
+    
+    if ($results === false ){
+       
+        echo mysqli_error($conn); #if error with the query then echo out the error @atribute = connection object from mysqli_connect()
+    }
+    
+    else{
+
+
+        $id = mysqli_insert_id($conn);
+        echo "Inserted record with ID: $id";
+    /*
+    We are only needing one row for the Article.php page and sorted in an associative array, which mysqli_fetch_assoc() does exactly that
+    @param (var)$results is the mysqli results object from the query.
+    */
+        
+    
+    }
 
     // Optional: Example code for handling the posted data
     // Retrieve and process the form data here if needed
