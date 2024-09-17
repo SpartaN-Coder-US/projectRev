@@ -17,25 +17,29 @@ if ($_SERVER["REQUEST_METHOD"]=== "POST"){
 </head>
 
 <form method="post">
+    <div>
+        <label for="title">Title</label>: <input type="text" name="title" id="title">
+    </div>
 
-<select name="marques[]" >
-<optgroup label="cars">
-                <option value="bmw">BMW</option>
-                <option value="ford" selected>Ford</option>
-                <option value="saab">Saab</option>
-            </optgroup>
-            <optgroup label="countries">
-                <option value="USA">USA</option>
-                <option value="RUSSIA">RUSSIA</option>
-                <option value="MOLDOVA">MOLDOVA</option>
-            </optgroup>
+    <div>
+        Content: <textarea name="content" rows="4" cols="40"></textarea>
+    </div>
 
-    </select>
-  
+    <div>
+        <label><input type="checkbox" name="visible" value="yes">Visible</label>
+    </div>
+
+    <div>
+        <p>Colour:</p>
+        <label><input type="radio" name="colour" value="blue" checked>Blue</label><br>
+        <label><input type="radio" name="colour" value="red">Red</label><br>
+        <label><input type="radio" name="colour" value="green">Green</label>
+    </div>
 
     <button>Send</button>
 
 </form>
+
 
 
 </body>
