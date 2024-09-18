@@ -1,11 +1,30 @@
 <?php
 
 
-
+require 'includes/database.php';
+$errors = [];
 // Check if the form was submitted using the POST method
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Output the POST data for debugging purposes
-    require 'includes/database.php';
+
+    
+
+    if ($_POST['title'] == ''){
+        $errors[] = 'Title is required';
+    }
+
+    if ($_POST['content'] == ''){
+        $errors[] = 'Content is required';
+    }
+
+    if(empty($errors)){
+
+    
+   
+    $conn =  getDB();
+    
+
+  
     $sql =
     "
     INSERT INTO article (title, content, published_at)
@@ -55,11 +74,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Additional processing can go here, such as saving to a database
 }
+}
 ?>
 
 <?php require 'includes/header.php'; ?>
 
 <h2>New Article</h2>
+
+<?php if(! empty($errors)): ?>
+
+<ul>
+    <?php foreach ($errors as $error): ?>
+        <li><?= $error ?></li>
+        <?php endforeach; ?>
+
+</ul>
+
+<?php endif; ?>
 
 <!-- Form for creating a new article -->
 <form method="post">

@@ -3,6 +3,7 @@
 
 require 'includes/database.php';
 
+$conn = getDB();
 
 # Asigning the $sql variable the query string for the database
 
