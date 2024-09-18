@@ -3,8 +3,15 @@
 
 require 'includes/database.php';
 $errors = [];
+$title = '';
+$content = '';
+$published_at = '';
 // Check if the form was submitted using the POST method
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $title = $_POST['title'];
+    $content = $_POST['content'];  
+    $published_at = $_POST['published_at'];    
     // Output the POST data for debugging purposes
 
     
@@ -97,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div>
         <!-- Title input field -->
         <label for="title">Title:</label>
-        <input type="name" name="title" id="title" placeholder="Article title">
+        <input type="name" name="title" id="title" placeholder="Article title" value = <?= $title ?> >
     </div>
 
     <div>
