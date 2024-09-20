@@ -35,6 +35,8 @@ else{
 
 
 <?php require 'includes/header.php'; ?>
+
+    <a href= 'new-article.php'>Insert new article</a>
         <?php if (empty($articles)): ?> <!-- check if the query returns empty list of articles  -->
             <p>No articles found.</p>
         <?php else: ?>
@@ -46,9 +48,9 @@ else{
                             <!-- Here we will echo out via the keys('title' & 'content') the content of title and content
                                  Also we are making the title a link with the referencec to our article.php where the id 
                                  is taken from the $article -->
-                            <h2><a href = "article.php?id=<?=$article['id'];?>"><?=$article['title']?></a></h2>
+                            <h2><a href = "article.php?id=<?=$article['id'];?>"><?php echo htmlspecialchars($article['title']) ?></a></h2>
 
-                            <p><?= $article['content']; ?></p>
+                            <p><?= htmlspecialchars($article['content']); ?></p>
                         </article>
                     </li>
                 <?php endforeach; ?>
