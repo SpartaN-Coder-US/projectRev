@@ -52,8 +52,8 @@ We are only needing one row for the Article.php page and sorted in an associativ
                     <li>  
                         <article>
                             <!-- Here we will echo out via the keys('title' & 'content') the content of title and content -->
-                            <h2><?= $article['title']; ?></h2>
-                            <p><?= $article['content']; ?></p>
+                            <h2><?= htmlspecialchars($article['title']); ?></h2>
+                            <p><?= htmlspecialchars($article['content']); ?></p>
                         </article>
                     </li>
                 

@@ -16,12 +16,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     
 
-    if ($_POST['title'] == ''){
+    if ($title == ''){
         $errors[] = 'Title is required';
     }
 
-    if ($_POST['content'] == ''){
+    if ($content == ''){
         $errors[] = 'Content is required';
+    }
+    
+    if ($published_at != ''){
+        $date_time = date_create_from_format('d-m-Y,H--i',$published_at);
+    }
+    if ($date_time === false ){
+        $error[] ='Invalid date and time';
     }
 
     if(empty($errors)){
@@ -53,17 +60,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     else{
 
-        mysqli_stmt_bind_param($stmt,'sss',$_POST['title'],$_POST['content'],$_POST['published_ad']);
+        if ($published_at == "" && $published_at == null ){
+
+            $published_at = null;
+        }
+
+        mysqli_stmt_bind_param($stmt,'sss',$title,$content,$published_at);
 
       if( mysqli_stmt_execute($stmt)){
 
         $id = mysqli_insert_id($conn);
 
-        echo "Inserted record with ID: $id";
-    /*
-    We are only needing one row for the Article.php page and sorted in an associative array, which mysqli_fetch_assoc() does exactly that
-    @param (var)$results is the mysqli results object from the query.
-    */
+        if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ){
+            $protocol= 'https';
+
+        }   else{
+            $protocol = 'http';
+
+        }
+
+        header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/article.php?id=$id");
+
+
+        exit;
+
+ 
         
     
     }else{
@@ -73,13 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-    // Optional: Example code for handling the posted data
-    // Retrieve and process the form data here if needed
-    // $title = $_POST['title'];
-    // $content = $_POST['content'];
-    // $published_at = $_POST['published_at'];
-
-    // Additional processing can go here, such as saving to a database
 }
 }
 ?>
@@ -104,19 +118,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div>
         <!-- Title input field -->
         <label for="title">Title:</label>
-        <input type="name" name="title" id="title" placeholder="Article title" value = <?= $title ?> >
+        <input type="name" name="title" id="title" placeholder="Article title" value = <?= htmlspecialchars($title); ?> >
     </div>
 
     <div>
         <!-- Content input field -->
         <label for="content">Content:</label>
-        <textarea name="content" rows="4" cols="40" id="content" placeholder="Article content"></textarea>
+        <textarea name="content" rows="4" cols="40" id="content" placeholder="Article content"><?= htmlspecialchars($content);?></textarea>
     </div>
 
     <div>
         <!-- Date and time input field for publication date -->
         <label for="published_at">Publication and time:</label>
-        <input type="datetime-local" name="published_at" id="published_at">
+        <input type="datetime-local" name="published_at" id="published_at" value= <?=  $published_at;?> >
     </div>
 
     <!-- Submit button for the form -->
