@@ -35,9 +35,21 @@ if (isset($_GET['id'])){
     die;
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    $title = $_POST['title'];
+    $content = $_POST['content'];  
+    $published_at = $_POST['published_at'];    
+    // Output the POST data for debugging purposes
 
+    
+    $errors = validateArticle($title,$content,$published_at); 
+  
+    if(empty($errors)){
+    die('Form is valid!');
 
+    }
+    }
 
 ?>
 
@@ -48,3 +60,5 @@ if (isset($_GET['id'])){
 <?php require 'includes/article-form.php'; ?>
 
 <?php require 'includes/footer.php'; ?>
+
+

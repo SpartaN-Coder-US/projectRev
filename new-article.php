@@ -2,11 +2,13 @@
 
 
 require 'includes/database.php';
-$errors = [];
+
 $title = '';
 $content = '';
 $published_at = '';
+ 
 // Check if the form was submitted using the POST method
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $title = $_POST['title'];
@@ -15,22 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Output the POST data for debugging purposes
 
     
-
-    if ($title == ''){
-        $errors[] = 'Title is required';
-    }
-
-    if ($content == ''){
-        $errors[] = 'Content is required';
-    }
-    
-    if ($published_at != ''){
-        $date_time = date_create_from_format('d-m-Y,H--i',$published_at);
-    }
-    if ($date_time === false ){
-        $error[] ='Invalid date and time';
-    }
-
+    $errors = validateArticle($title,$content,$published_at); 
+  
     if(empty($errors)){
 
     

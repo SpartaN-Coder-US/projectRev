@@ -38,3 +38,34 @@ function getArticle($conn,$id)
 
     
 }
+
+
+/**
+ * In order to check that the edited fields are acooriding to the correct format.
+ *
+ * @param [string] $title
+ * @param [string] $content
+ * @param [string] $published_at
+ * @return the errors array if any else null
+ */
+function validateArticle($title, $content,$published_at) 
+{
+    $errors = [];
+
+    if ($title == ''){
+        $errors[] = 'Title is required';
+    }
+
+    if ($content == ''){ 
+        $errors[] = 'Content is required';
+    }
+    
+    if ($published_at != ''){
+        $date_time = date_create_from_format('d-m-Y,H--i',$published_at);
+    }
+    if ($date_time === false ){
+        $error[] ='Invalid date and time';
+    }
+
+    return $errors;
+}
