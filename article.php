@@ -2,38 +2,16 @@
 <?php
 
 require 'includes/database.php';
+require 'includes/article.php';
 
 $conn = getDB();
 
 # Asigning the $sql variable the query string for the database
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])){ # to prevent sql injection we are checking if the id first exists and if the id is numeric in order to limit the posibility of sql injection
-
-$sql =
-"
-SELECT *
-FROM article
-WHERE id = " . $_GET['id']; # instead of hardcoding the id we are pasiing in the id from the querry.
+if (isset($_GET['id'])){ 
 
 
-
-# Asiging the $results var, the query result object based on the connection to the database ($conn) and the query statemanet ($sql)
-
-$results = mysqli_query($conn,$sql); 
-
-if ($results === false ){
-   
-    echo mysqli_error($conn); #if error with the query then echo out the error @atribute = connection object from mysqli_connect()
-}
-
-else{
-/*
-We are only needing one row for the Article.php page and sorted in an associative array, which mysqli_fetch_assoc() does exactly that
-@param (var)$results is the mysqli results object from the query.
-*/
-    $article = mysqli_fetch_assoc($results);
-
-}
+  $article = getArticle($conn,$_GET['id']);  
 
 } else {
     $article = null;    #if the id != valid then we assign $article null.
