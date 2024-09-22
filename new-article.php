@@ -102,39 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <h2>New Article</h2>
 
-<?php if(! empty($errors)): ?>
-
-<ul>
-    <?php foreach ($errors as $error): ?>
-        <li><?= $error ?></li>
-        <?php endforeach; ?>
-
-</ul>
-
-<?php endif; ?>
-
-<!-- Form for creating a new article -->
-<form method="post">
-    <div>
-        <!-- Title input field -->
-        <label for="title">Title:</label>
-        <input type="name" name="title" id="title" placeholder="Article title" value = <?= htmlspecialchars($title); ?> >
-    </div>
-
-    <div>
-        <!-- Content input field -->
-        <label for="content">Content:</label>
-        <textarea name="content" rows="4" cols="40" id="content" placeholder="Article content"><?= htmlspecialchars($content);?></textarea>
-    </div>
-
-    <div>
-        <!-- Date and time input field for publication date -->
-        <label for="published_at">Publication and time:</label>
-        <input type="datetime-local" name="published_at" id="published_at" value= <?=  $published_at;?> >
-    </div>
-
-    <!-- Submit button for the form -->
-    <button>Add</button>
-</form>
+<?php require 'includes/article-form.php'; ?>
 
 <?php require 'includes/footer.php'; ?>

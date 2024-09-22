@@ -12,9 +12,39 @@ if (isset($_GET['id'])){
 
 
   $article = getArticle($conn,$_GET['id']);  
+  
+  if ($article) {
+    $title = htmlspecialchars($article['title']);
+    $content = htmlspecialchars($article['content']);
+    $published_at = htmlspecialchars($article['published_at']);
+
+
+
+    
 
 } else {
-    $article = null;    #if the id != valid then we assign $article null.
+
+    die('Article not found');
+    
+} 
+
+
+
+} else {
+    echo 'ID incorret or not found';
+    die;
 }
 
-var_dump($article);
+
+
+
+
+?>
+
+<?php require 'includes/header.php'; ?>
+
+<h2>Edit article</h2>
+
+<?php require 'includes/article-form.php'; ?>
+
+<?php require 'includes/footer.php'; ?>
